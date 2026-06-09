@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김아키 | 건축 설계 포트폴리오</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR & Playfair Display for aesthetic headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --primary-light: #f5f5f5;
+            --accent: #8b7355; /* Muted Gold for architectural feel */
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Project Card Hover Effects */
+        .project-card {
+            overflow: hidden;
+        }
+        
+        .project-card img {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-text {
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-text {
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arch: {
+                            black: '#1a1a1a',
+                            white: '#f5f5f5',
+                            gray: '#e5e5e5',
+                            accent: '#8b7355'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-arch-accent selection:text-white">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-8 md:px-16 flex justify-between items-center text-white">
+        <a href="#" class="text-2xl font-serif font-semibold tracking-wider z-50">KIM.ARCH</a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
+            <a href="#about" class="hover:text-arch-accent transition-colors">About</a>
+            <a href="#portfolio" class="hover:text-arch-accent transition-colors">Portfolio</a>
+            <a href="#philosophy" class="hover:text-arch-accent transition-colors">Philosophy</a>
+            <a href="#contact" class="hover:text-arch-accent transition-colors">Contact</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-btn" class="md:hidden z-50 text-2xl focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-arch-black text-white flex flex-col items-center justify-center space-y-8 text-xl uppercase tracking-widest transition-transform duration-300 translate-x-full z-40">
+            <a href="#about" class="mobile-link hover:text-arch-accent">About</a>
+            <a href="#portfolio" class="mobile-link hover:text-arch-accent">Portfolio</a>
+            <a href="#philosophy" class="mobile-link hover:text-arch-accent">Philosophy</a>
+            <a href="#contact" class="mobile-link hover:text-arch-accent">Contact</a>
+        </div>
+    </nav>
+
+    <header id="home" class="relative h-screen flex items-center justify-center bg-arch-black overflow-hidden">
+        <!-- Hero Background Placeholder (Architecture theme) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600607687959-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Architecture Background" class="w-full h-full object-cover opacity-40">
+        </div>
+        
+        <div class="relative z-10 text-center px-4 text-white">
+            <p class="text-sm md:text-base uppercase tracking-[0.3em] mb-4 text-arch-accent reveal">Architectural Design Portfolio</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-medium mb-6 leading-tight reveal" style="transition-delay: 0.2s;">
+                공간을 짓고,<br>사람을 잇습니다.
+            </h1>
+            <p class="text-lg md:text-xl font-light text-gray-300 max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 0.4s;">
+                Building spaces, connecting people.
+            </p>
+            <a href="#portfolio" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-arch-black transition-colors duration-300 reveal" style="transition-delay: 0.6s;">
+                View Projects
+            </a>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce opacity-70 z-10">
+            <span class="text-white text-xs uppercase tracking-widest mb-2">Scroll</span>
+            <div class="w-[1px] h-12 bg-white"></div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 md:py-32 px-6 md:px-16 max-w-7xl mx-auto bg-arch-white">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <img src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Architect Portrait Placeholder" class="w-full h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-500 shadow-xl">
+            </div>
+            <div class="reveal">
+                <h2 class="text-3xl md:text-4xl font-serif mb-6 text-arch-black">김 아 키 <span class="text-lg font-sans text-gray-500 ml-2">Aki Kim</span></h2>
+                <p class="text-arch-accent uppercase tracking-widest text-sm mb-8 font-medium">Lead Architect</p>
+                
+                <div class="space-y-6 text-gray-600 leading-relaxed font-light">
+                    <p>
+                        건축은 단순한 구조물이 아닌, 인간의 삶과 자연이 교감하는 매개체라고 믿습니다. 선과 면, 그리고 빛을 활용하여 머무는 이에게 평온함을 주는 공간을 설계합니다.
+                    </p>
+                    <p>
+                        지난 8년간 주거 공간부터 대규모 문화 시설까지 다양한 스케일의 프로젝트를 이끌며, 주변 환경과의 조화로움, 지속 가능한 디자인(Sustainable Design)에 가치를 두고 작업해왔습니다.
+                    </p>
+                </div>
+
+                <div class="mt-10 grid grid-cols-2 gap-6 border-t border-gray-300 pt-8">
+                    <div>
+                        <h4 class="font-semibold text-arch-black mb-2">Education</h4>
+                        <p class="text-sm text-gray-600">서울대학교 건축학과 석사<br>2014 - 2016</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-arch-black mb-2">Experience</h4>
+                        <p class="text-sm text-gray-600">스튜디오 아키 (현)<br>공간 종합건축사사무소</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-24 md:py-32 bg-arch-black text-white">
+        <div class="px-6 md:px-16 max-w-7xl mx-auto mb-16 text-center reveal">
+            <h2 class="text-4xl md:text-5xl font-serif mb-4">Selected Works</h2>
+            <div class="w-16 h-[1px] bg-arch-accent mx-auto"></div>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+            
+            <!-- Project 1 -->
+            <a href="#" class="project-card relative block h-[500px] group reveal">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="빛의 미술관" class="w-full h-full object-cover">
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <div class="project-text">
+                        <p class="text-arch-accent text-xs uppercase tracking-widest mb-2">Cultural / Museum</p>
+                        <h3 class="text-2xl font-serif mb-2">빛의 미술관</h3>
+                        <p class="text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">자연광을 극대화한 미니멀리스트 갤러리 설계안.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project 2 -->
+            <a href="#" class="project-card relative block h-[500px] group reveal" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="도심 속 오아시스" class="w-full h-full object-cover">
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <div class="project-text">
+                        <p class="text-arch-accent text-xs uppercase tracking-widest mb-2">Commercial / Office</p>
+                        <h3 class="text-2xl font-serif mb-2">도심 속 오아시스</h3>
+                        <p class="text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">테라스 조경을 활용한 친환경 사옥 프로젝트.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project 3 -->
+            <a href="#" class="project-card relative block h-[500px] group reveal" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="해변의 중정 하우스" class="w-full h-full object-cover">
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <div class="project-text">
+                        <p class="text-arch-accent text-xs uppercase tracking-widest mb-2">Residential</p>
+                        <h3 class="text-2xl font-serif mb-2">해변의 중정 하우스</h3>
+                        <p class="text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">프라이버시와 개방감을 동시에 충족시키는 단독주택.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project 4 -->
+            <a href="#" class="project-card relative block h-[500px] group reveal">
+                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="어반 파빌리온" class="w-full h-full object-cover">
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <div class="project-text">
+                        <p class="text-arch-accent text-xs uppercase tracking-widest mb-2">Public Space</p>
+                        <h3 class="text-2xl font-serif mb-2">어반 파빌리온</h3>
+                        <p class="text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">시민들을 위한 휴식 공간, 목조 구조물 설계.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project 5 -->
+            <a href="#" class="project-card relative block h-[500px] group reveal" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1518712953282-42c26f04eb20?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="선형의 미학" class="w-full h-full object-cover">
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <div class="project-text">
+                        <p class="text-arch-accent text-xs uppercase tracking-widest mb-2">Renovation</p>
+                        <h3 class="text-2xl font-serif mb-2">선형의 교차</h3>
+                        <p class="text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">오래된 벽돌 공장을 복합 문화 공간으로 재생.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project 6 -->
+            <a href="#" class="project-card relative block h-[500px] group bg-gray-900 flex items-center justify-center reveal" style="transition-delay: 0.2s;">
+                <div class="text-center">
+                    <i class="fas fa-plus text-3xl mb-4 text-arch-accent"></i>
+                    <h3 class="text-xl font-serif uppercase tracking-widest">View All Projects</h3>
+                </div>
+                <div class="project-overlay absolute inset-0"></div>
+            </a>
+        </div>
+    </section>
+
+    <section id="philosophy" class="py-24 md:py-32 px-6 bg-gray-100 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10 reveal">
+            <i class="fas fa-quote-left text-4xl text-arch-accent mb-8 opacity-50"></i>
+            <h2 class="text-2xl md:text-4xl font-serif leading-relaxed text-arch-black font-medium mb-8">
+                "좋은 건축은 형태를 외치지 않습니다.<br>단지, 그곳에 머무는 사람의 삶을 조용히 품어낼 뿐입니다."
+            </h2>
+            <div class="w-12 h-[2px] bg-arch-black mx-auto"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="reveal">
+                <h2 class="text-4xl font-serif mb-6 text-arch-black">Let's Talk.</h2>
+                <p class="text-gray-600 mb-10 font-light leading-relaxed">
+                    새로운 공간을 짓는 첫 걸음, 작은 아이디어부터 구체적인 프로젝트 문의까지 언제든 환영합니다.<br>아래 양식을 통해 메시지를 남겨주시면 확인 후 연락드리겠습니다.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-map-marker-alt w-6 text-arch-accent"></i>
+                        <span>서울특별시 강남구 테헤란로 123, 아키빌딩 4층</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-envelope w-6 text-arch-accent"></i>
+                        <span>hello@kim-arch.com</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-phone w-6 text-arch-accent"></i>
+                        <span>+82 02 1234 5678</span>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-arch-black transition-colors text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-arch-black transition-colors text-xl"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-arch-black transition-colors text-xl"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Contact Form UI -->
+            <div class="bg-gray-50 p-8 rounded-sm reveal" style="transition-delay: 0.2s;">
+                <form class="space-y-6" onsubmit="event.preventDefault(); showMessage();">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" for="name">Name</label>
+                        <input type="text" id="name" required class="w-full bg-transparent border-b border-gray-300 py-2 focus:outline-none focus:border-arch-accent transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" for="email">Email</label>
+                        <input type="email" id="email" required class="w-full bg-transparent border-b border-gray-300 py-2 focus:outline-none focus:border-arch-accent transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" for="message">Message</label>
+                        <textarea id="message" rows="4" required class="w-full bg-transparent border-b border-gray-300 py-2 focus:outline-none focus:border-arch-accent transition-colors resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-arch-black text-white py-4 text-sm uppercase tracking-widest hover:bg-arch-accent transition-colors duration-300">
+                        Send Message
+                    </button>
+                    <!-- Form Submit Message Area -->
+                    <p id="form-message" class="text-sm text-green-600 hidden mt-4 text-center">메시지가 성공적으로 전송되었습니다!</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-arch-black text-gray-400 py-10 border-t border-gray-800 text-center text-sm">
+        <p>&copy; 2026 Kim Architecture. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Form Submission Simulation
+        function showMessage() {
+            const msgArea = document.getElementById('form-message');
+            msgArea.classList.remove('hidden');
+            setTimeout(() => {
+                msgArea.classList.add('hidden');
+                document.querySelector('form').reset();
+            }, 3000);
+        }
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-arch-black', 'shadow-md', 'py-4');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('bg-arch-black', 'shadow-md', 'py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Scroll Reveal Animation (Intersection Observer)
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100; // Trigger point
+
+            reveals.forEach((element) => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add("active");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
